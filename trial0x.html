@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>緯度経度付き画像表示</title>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script>
+            const today = new Date();
+                const s = today.toISOString();
+                const end = s
+                // Extracting the year, month, and day from the 'end' string
+                const year = end.slice(0, 4);
+                const month = end.slice(5, 7);
+                const day = end.slice(8, 10);
+
+                // Creating the new string in the format 'YYYYMMDD000000'
+                const time = year + month + day + '000000';
+                const basetime = time;
+                const validtime = time;
+
+    const imagesData = [
+        { url: `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/2.jpg`, latitude: 35.6895, longitude: 139.6917 },
+        { url: `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/2.jpg`, latitude: 40.7128, longitude: -74.0060 },
+        // 他の画像や座標を追加
+    ];
+
+    // Leafletの初期化
+    const map = L.map('map').setView([0, 0], 2);
+
+    // 地図の表示
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 画像をマップ上に配置
+    imagesData.forEach(imageData => {
+        const imageUrl = imageData.url;
+        const imageBounds = [[imageData.latitude - 0.1, imageData.longitude - 0.1], [imageData.latitude + 0.1, imageData.longitude + 0.1]];
+
+        L.imageOverlay(imageUrl, imageBounds).addTo(map);
+    });
+
+    </script>
+
+    <div id="map"></div>
+
+</body>
+
+</html>

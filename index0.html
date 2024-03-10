@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> MINIMAL </title>
+<script>
+    const today = new Date();
+    const s = today.toISOString();
+    const end=s
+    // Extracting the year, month, and day from the 'end' string
+    const year = end.slice(0, 4);
+    const month = end.slice(5, 7);
+    const day = end.slice(8, 10);
+
+    // Creating the new string in the format 'YYYYMMDD000000'
+    const time = year + month + day + '000000';
+    const basetime = time;
+    const validtime = time;
+    const band = 'B03';
+    const prod = 'ALBD';
+    const z = 3;
+    const x = 7;
+    const y = 3;
+
+    const imageUrl = `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/${band}/${prod}/${z}/${x}/${y}.jpg`;
+
+    console.log(imageUrl)
+
+</script>
+</head>
+
+<body>
+<!--
+<img src='https://www.jma.go.jp/bosai/himawari/data/satimg/20240216065000/fd/20240216065000/B03/ALBD/3/7/3.jpg'
+    width="600" height="600">
+-->
+
+<div id="imageContainer">
+    <span id="imageText"></span>
+    <img src="" id="myImage" width="800" height="800">
+</div>
+
+<script>
+    const imageTextElement = document.getElementById('imageText');  
+    imageTextElement.textContent = imageUrl; 
+    
+    const imageElement = document.getElementById('myImage');
+    imageElement.src = imageUrl;
+</script>
+
+</body>
+</html>

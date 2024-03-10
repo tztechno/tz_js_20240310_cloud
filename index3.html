@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> MINIMAL </title>
+
+    <style>
+        #imageContainer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .canvasCell {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border: 1px solid black;
+            /* オプション: ボーダーの追加 */
+        }
+
+        .myCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="imageContainer">
+        <div class="canvasCell">
+            <canvas id="myCanvas0" class="myCanvas"></canvas>
+        </div>
+        <div class="canvasCell">
+            <canvas id="myCanvas1" class="myCanvas"></canvas>
+        </div>
+        <div class="canvasCell">
+            <canvas id="myCanvas2" class="myCanvas"></canvas>
+        </div>
+        <div class="canvasCell">
+            <canvas id="myCanvas3" class="myCanvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const today = new Date();
+        const s = today.toISOString();
+        const end = s
+        // Extracting the year, month, and day from the 'end' string
+        const year = end.slice(0, 4);
+        const month = end.slice(5, 7);
+        const day = end.slice(8, 10);
+
+        // Creating the new string in the format 'YYYYMMDD000000'
+        const time = year + month + day + '000000';
+        const basetime = time;
+        const validtime = time;
+
+
+        const imageUrls = [
+            `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/2.jpg`,
+            `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/7/2.jpg`,
+            `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/3.jpg`,
+            `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/7/3.jpg`,
+        ];
+
+        imageUrls.forEach((imageUrl, index) => {
+            const canvas = document.getElementById(`myCanvas${index}`);
+            const ctx = canvas.getContext('2d');
+
+            // キャンバスサイズを設定
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+
+            // 画像を描画
+            const img = new Image();
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = imageUrl;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> MINIMAL </title>
+
+    <style>
+        #imageContainer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    
+        #myImage {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="imageContainer">
+    <div>
+        <span id="imageText0"></span>
+        <img src="" id="myImage0">
+    </div>
+    <div>
+        <span id="imageText1"></span>
+        <img src="" id="myImage1">
+    </div>
+    <div>
+        <span id="imageText2"></span>
+        <img src="" id="myImage2">
+    </div>
+    <div>
+        <span id="imageText3"></span>
+        <img src="" id="myImage3">
+    </div>
+</div>
+
+<script>
+    const today = new Date();
+    const s = today.toISOString();
+    const end = s
+    // Extracting the year, month, and day from the 'end' string
+    const year = end.slice(0, 4);
+    const month = end.slice(5, 7);
+    const day = end.slice(8, 10);
+
+    // Creating the new string in the format 'YYYYMMDD000000'
+    const time = year + month + day + '000000';
+    const basetime = time;
+    const validtime = time;
+
+    var imageUrls = [
+        `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/2.jpg`,
+        `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/7/2.jpg`,
+        `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/6/3.jpg`,
+        `https://www.jma.go.jp/bosai/himawari/data/satimg/${basetime}/fd/${validtime}/B03/ALBD/3/7/3.jpg`,
+        ];
+
+    for (let i = 0; i < 4; i++) {
+        const imageElement = document.getElementById(`myImage${i}`);
+        imageElement.src = imageUrls[i];
+    }
+
+</script>
+</body>
+
+</html>

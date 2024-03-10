@@ -1,0 +1,34 @@
+// Create the map
+var map = L.map('map').setView([35, 135], 5);
+
+// Add the base map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Define image URLs and extents
+var imageUrls = [
+'https://www.jma.go.jp/bosai/himawari/data/satimg/20240227000000/fd/20240227000000/B03/ALBD/3/7/3.jpg',
+'https://www.jma.go.jp/bosai/himawari/data/satimg/20240227000000/fd/20240227000000/B03/ALBD/3/7/2.jpg',
+'https://www.jma.go.jp/bosai/himawari/data/satimg/20240227000000/fd/20240227000000/B03/ALBD/3/6/2.jpg',
+'https://www.jma.go.jp/bosai/himawari/data/satimg/20240227000000/fd/20240227000000/B03/ALBD/3/6/3.jpg'
+];
+
+var extents = [
+[7, 3, 8, 4],
+[7, 2, 8, 3],
+[6, 2, 7, 3],
+[6, 3, 7, 4]
+];
+
+// Load and display the images
+for (var i = 0; i < imageUrls.length; i++) { var extent=extents[i]; L.imageOverlay(imageUrls[i], extent).addTo(map); }
+    // Load GeoJSON data var geojsonUrl='/path/to/gadm41_JPN_0.geojson' ; // Replace with the actual path
+    fetch(geojsonUrl) .then(response=> response.json())
+    .then(data => {
+    // Create a GeoJSON layer and add it to the map
+    L.geoJSON(data).addTo(map);
+    });
+
+    // Set the map bounds
+    map.fitBounds([[20, 120], [50, 155]]);
